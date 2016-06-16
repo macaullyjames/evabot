@@ -8,5 +8,5 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 3000, host: 3000
   config.vm.provision :shell, privileged: false, path: "bootstrap.sh"
   config.vm.provision :shell, privileged: false, run: "always",
-      inline: "cd /evabot/app && rails server --daemon -b 0.0.0.0"
+      inline: "cd /evabot/rails && rails server --daemon -b 0.0.0.0"
 end

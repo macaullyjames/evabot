@@ -21,7 +21,7 @@ curl -sSL https://get.rvm.io | silent bash -s stable --ruby
 source ~/.rvm/scripts/rvm
 
 echo 'Installing gems...'
-cd /evabot/app
+cd /evabot/rails
 silent gem install bundler
 silent bundle install
 
