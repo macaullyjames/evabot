@@ -1,6 +1,6 @@
 #!/bin/bash
 
-logfile="/vagrant/bootstrap.log"
+logfile="/evabot/bootstrap.log"
 rm -f $logfile
 
 function silent() {
@@ -21,11 +21,11 @@ curl -sSL https://get.rvm.io | silent bash -s stable --ruby
 source ~/.rvm/scripts/rvm
 
 echo 'Installing gems...'
-cd /vagrant/app
+cd /evabot/app
 silent gem install bundler
 silent bundle install
 
 echo 'Sprinkling magic...'
-echo 'cd /vagrant' >> ~/.bashrc
+echo 'cd /evabot' >> ~/.bashrc
 
 rm $logfile
