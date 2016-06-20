@@ -3,12 +3,16 @@ rvm:
   - 2.3.0
 script:
   - cd rails
+  - bundle install
   - rails db:drop db:create db:migrate
   - rails test
-after_success:
+  - cd ../
   - eval "$(ssh-agent -s)"
-  - ssh-add .travis/deploy_key
-  - ssh deploy@evabot.io < ./travis/deploy.sh
+  - chmod 600 ./travis/deploy_key
+  - ssh-add ./travis/deploy_key
+  - git remote add production deploy@evabot.io:evabot.git
+  - ssh-keyscan evabot.io >> ~/.ssh/known_hosts
+  - git push -f production master
 before_install:
   - openssl aes-256-cbc -K $encrypted_e96b6cd79886_key -iv $encrypted_e96b6cd79886_iv
     -in ./travis/deploy_key.enc -out ./travis/deploy_key -d
