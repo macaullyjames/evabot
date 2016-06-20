@@ -1,0 +1,14 @@
+language: ruby
+rvm:
+  - 2.3.0
+script:
+  - cd rails
+  - rails db:drop db:create db:migrate
+  - rails test
+after_success:
+  - eval "$(ssh-agent -s)"
+  - ssh-add .travis/deploy_key
+  - ssh deploy@evabot.io << .travis/deploy.sh
+before_install:
+  - openssl aes-256-cbc -K $encrypted_e96b6cd79886_key -iv $encrypted_e96b6cd79886_iv
+    -in deploy_key.enc -out deploy_key -d
