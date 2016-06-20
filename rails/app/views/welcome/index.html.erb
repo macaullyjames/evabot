@@ -1,2 +1,7 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<div class="wrapper">
+  <h1>eva·bot</h1>
+
+  <%= form_for :user do |f| %>
+    <%= f.text_field :token, placeholder: "access token" %>
+  <% end %>
+</div>
