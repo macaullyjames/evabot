@@ -29,3 +29,20 @@ body {
   margin: 5rem auto 0 auto;
   max-width: 630px;
 }
+
+.flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.2em;
+  box-sizing: border-box;
+  text-align: center;
+  color: #FFFFFF;
+  font-weight: 300;
+  font-size: 90%
+}
+
+.flash.error {
+  background: #D96A77;
+}
