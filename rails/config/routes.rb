@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
+  root 'sessions#new'
 
   resources :welcome,   only: [:index]
   resources :dashboard, only: [:index]
