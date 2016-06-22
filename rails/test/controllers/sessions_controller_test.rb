@@ -1,4 +1,6 @@
 require 'test_helper'
+require 'minitest/mock'
+require 'authenticator'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
 
@@ -11,12 +13,16 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect after login attempt" do
     # Invalid login attempts should redirect back to the login form 
-    post sessions_path, params: login_params[:invalid]
-    assert_redirected_to new_session_path
+    Authenticator.stub(:get_username, nil) do
+      post sessions_path, params: login_params[:invalid]
+      assert_redirected_to new_session_path
+    end
 
     # Valid login attempts should redirect to the dashboard
-    post sessions_path, params: login_params[:valid]
-    assert_redirected_to dashboard_index_path
+    Authenticator.stub(:get_username, "success") do
+      post sessions_path, params: login_params[:valid]
+      assert_redirected_to dashboard_index_path
+    end
   end
 
   test "should show error message after invalid login attempt" do
