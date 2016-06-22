@@ -1,9 +1,5 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# No, this token insn't an actual Github OAuth token.
 one:
-  username: MyString
-  token: MyString
+  username: macaullyjames
+  token: "3df2d9bcf85518d108267860ec37598639515024"
 
-two:
-  username: MyString
-  token: MyString

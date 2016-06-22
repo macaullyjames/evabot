@@ -1,28 +1,23 @@
 require 'test_helper'
-require 'minitest/mock'
-require 'authenticator'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
 
-  def login_params 
-    {
-      valid: { session: { token: "token" } },
-      invalid: { session: { token: "" } }
-    }
+  setup do
+    @login_params = Hash.new
+    @login_params[:invalid] = { session: { token: "" } }
+    User.find_each do |user|
+      @login_params[:"#{user.username}"] = { session: { token: user.token } }
+    end
   end
 
   test "should redirect after login attempt" do
     # Invalid login attempts should redirect back to the login form 
-    Authenticator.stub(:get_username, nil) do
-      post sessions_path, params: login_params[:invalid]
-      assert_redirected_to new_session_path
-    end
+    post sessions_path, params: @login_params[:invalid]
+    assert_redirected_to new_session_path
 
     # Valid login attempts should redirect to the dashboard
-    Authenticator.stub(:get_username, "success") do
-      post sessions_path, params: login_params[:valid]
-      assert_redirected_to dashboard_index_path
-    end
+    post sessions_path, params: @login_params[:macaullyjames]
+    assert_redirected_to dashboard_index_path
   end
 
   test "should show error message after invalid login attempt" do
@@ -31,7 +26,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_select '.flash.error', false
 
     # Show an error message after an invalid login
-    post sessions_path, params: login_params[:invalid]
+    post sessions_path, params: @login_params[:invalid]
     follow_redirect!
     assert_select '.flash.error'
 
