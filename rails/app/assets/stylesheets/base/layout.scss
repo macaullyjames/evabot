@@ -13,12 +13,8 @@ body {
   padding-top: 3rem;
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
-  background-color: #F7F7F7;
+  background: #F7F7F7;
   color: #454545;
-
-  * {
-    transition:all .2s linear;
-  }
 }
 
 .flash {
@@ -41,7 +37,7 @@ body {
 .wrapper {
   margin: 0 auto;
   text-align: center;
-
+  max-width: 100%;
 }
 
 @include desktop {

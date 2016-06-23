@@ -9,6 +9,8 @@
   }
 
   input {
+    width: 90%;
+    max-width: 18em;
     padding: 0.7em;
     border: 0px;
     border-radius: 3px;
@@ -18,16 +20,8 @@
   }
 }
 
-@include desktop {
-  input {
-    width: 200px;
-    font-size: 70%;
-  }
-}
-
 @include notdesktop {
   input {
-    width: 90%;
     font-size:100%;
   }
 }

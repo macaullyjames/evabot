@@ -2,6 +2,10 @@
   <h1>eva·bot</h1>
 
   <%= form_for(:session, url: sessions_path) do |f| %>
-    <%= f.text_field :token, placeholder: "access token" %>
+    <%= f.text_field :token,
+      placeholder: "access token",
+      autocorrect: "off",
+      autofocus: true
+    %>
   <% end %>
 </div>
