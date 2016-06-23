@@ -1,4 +1,5 @@
 @import 'base/mixins';
+@import 'base/colors';
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400';
 
 html {
@@ -13,8 +14,8 @@ body {
   padding-top: 3rem;
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
-  background: #F7F7F7;
-  color: #454545;
+  background: $background-color;
+  color: $text-color;
 }
 
 .flash {
@@ -25,12 +26,12 @@ body {
   padding: 0.2em;
   box-sizing: border-box;
   text-align: center;
-  color: #FFFFFF;
   font-weight: 300;
   font-size: 90%;
+  color: $foreground-color;
 
   &.error {
-    background: #D96A77;
+    background: $flash-error-color;
   }
 }
 
