@@ -1,0 +1,12 @@
+$wrapper-width: 630px;
+@mixin desktop {
+  @media (min-width: #{$wrapper-width}) {
+    @content;
+  }
+}
+@mixin notdesktop {
+  @media not all and (min-width: #{$wrapper-width}) {
+    @content;
+  }
+}
+

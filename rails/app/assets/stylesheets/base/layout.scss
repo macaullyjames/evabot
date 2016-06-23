@@ -1,31 +1,57 @@
+@import 'base/mixins';
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400';
 
-$desktop-width: 1024px;
-@mixin desktop {
-  @media (min-width: #{$desktop-width}) {
-    @content;
-  }
-}
-@mixin mobile {
-  @media not all and (min-width: #{$desktop-width}) {
-    @content;
-  }
-}
-
-html, body {
+html {
   width: 100%;
   height: 100%;
-  font-size:110%;
-  @include desktop { font-size: 90% }
 }
 
-
 body {
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding-top: 3rem;
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
   background-color: #F7F7F7;
   color: #454545;
+
+  * {
+    transition:all .2s linear;
+  }
+}
+
+.flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.2em;
+  box-sizing: border-box;
+  text-align: center;
+  color: #FFFFFF;
+  font-weight: 300;
+  font-size: 90%;
+
+  &.error {
+    background: #D96A77;
+  }
+}
+
+.wrapper {
+  margin: 0 auto;
+  text-align: center;
+
+}
+
+@include desktop {
+  .wrapper {
+    width: $wrapper-width;
+  }
+}
+@include notdesktop {
+  .wrapper {
+    width: 100%;
+  }
 }
 
