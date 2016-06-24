@@ -16,7 +16,7 @@ echo 'Updating the box...'
 silent sudo apt-get update -y
 
 # Required for the "rugged" gem
-silent apt-get install cmake -y
+silent sudo apt-get install cmake -y
 
 echo 'Installing rvm and ruby...'
 silent gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
