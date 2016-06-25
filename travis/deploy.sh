@@ -1,6 +1,14 @@
+# Only deploy the master branch
+if [ "$TRAVIS_PULL_REQUEST" != "false" ] || [ "$TRAVIS_BRANCH" != "master" ]; then
+    echo "Not on master, skipping deploy..."
+    exit 0
+fi
+
+# Make sure we're in the repo's root directory
+cd $ROOT_DIR
+
 # Decrypt the deploy key
-openssl aes-256-cbc -K $encrypted_e96b6cd79886_key -iv $encrypted_e96b6cd79886_iv
-  -in travis/deploy_key.enc -out travis/deploy_key -d
+openssl aes-256-cbc -K $encrypted_e96b6cd79886_key -iv $encrypted_e96b6cd79886_iv -in travis/deploy_key.enc -out travis/deploy_key -d
 chmod 600 travis/deploy_key
 
 # Set up SSH

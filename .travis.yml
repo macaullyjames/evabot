@@ -1,13 +1,13 @@
 language: ruby
 rvm:
-- 2.3.0
-install: cd rails && bundle install
-script:  rails db:create db:migrate test
-deploy:
-  provider: script
-  script: travis/deploy.sh
-  on:
-    branch: master
+  - 2.3.0
+install: cd $ROOT_DIR/rails && bundle install
+script:
+  - cd $ROOT_DIR/rails && rails db:create db:migrate test
+  - . $ROOT_DIR/travis/deploy.sh
+env:
+  global:
+    - ROOT_DIR=`pwd`
 notifications:
   slack:
     secure: IpZY5bxj916DXeHpPbhVFC0+SQDS8ovfULw0d2TLPlVHUuP19zSMXEG/QttKlKC0jre4Q3gc64lhRqgcWRUpbuyAgKzmReA94bNEF7obNelD5KLOAl9uzPOCcbDWCeKV9bWGdU4NByKRRVihLRnxZ1gPZlTEwYo07ZJIhXeqVzwh9qK8UIOi/TbWRRmRLDKROJ8ElyiuGpeMwG/KiYax0oB6dT6gLfRSjcZdLMp8eoRyTbZ/YUpNDdI3MwEzXPUaeOsg8jt3RKEDhHCJEkd5cvs8QIgrlImeNLEVv/IL+HpHqzF4AsWot6+c/CPoFZm565HgeCTeFB3xEtd6+0R0KgWIe2ItEvFR3f9VJA4ulTZBMvTYuEwYmyJsaM1qsAw+KZp2AVjZyzbAQ/mP+4pio4vm30Z6QIf1jb0m8DiirSTnJjhSHHnCrATZBQNO6M6bM7P/NJ0sjoOaV8u72Wt9QuXMsw3ukYlHP6GzT7AHf8cCFRh7HK2oC418nbjk1jc08z4fdb6EcqThV7hP+AFlLEAhLjwU4c9c6CnoqjaF1VS2akSViDVh9vmHg5DM3OX82R1qaJw7mrP0gQr7WadRDS3nT0Gw5qNoh4RSQB7xg5lEt0aXGpXLCMq+PM6cWD+TJ3A1cS9MjGdSu6GsoeH58dreBtbrwGVLl6114USyuEU=
