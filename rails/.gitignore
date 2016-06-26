@@ -6,7 +6,6 @@
 
 # Ignore bundler config.
 /.bundle
-/vendor/bundle
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -20,5 +19,3 @@
 
 # Ignore Byebug command history file.
 .byebug_history
-
-# Ignore bundler config.
