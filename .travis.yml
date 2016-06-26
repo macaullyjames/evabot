@@ -1,12 +1,12 @@
 language: ruby
 rvm: 2.3.0
-before_install: cd rails
-
-deploy:
-  provider: script
-  script: travis/deploy.sh
-  on:
-    branch: master
+fast_finish: true
+before_script:
+  - chmod a+x travis/*.sh
+script:
+  - travis/install.sh
+  - travis/test.sh
+  - travis/deploy.sh
 
 notifications:
   email: false

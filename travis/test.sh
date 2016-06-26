@@ -1,0 +1,2 @@
+cd rails && rails test
+
