@@ -14,6 +14,10 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, privileged: false, path: "vagrant/up.sh", run: "always"
 
   config.trigger.after :up do
-    if OS.mac? then system "open http://localhost:3000" end
+    if OS.mac?
+      system "open http://localhost:3000"
+    elsif OS.windows?
+      system "start http://localhost:3000"
+    end
   end
 end
