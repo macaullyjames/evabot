@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627143438) do
+ActiveRecord::Schema.define(version: 20160630081614) do
 
   create_table "repos", force: :cascade do |t|
     t.integer  "user_id"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20160627143438) do
     t.string   "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "repos_id"
+    t.index ["repos_id"], name: "index_users_on_repos_id"
   end
 
 end
