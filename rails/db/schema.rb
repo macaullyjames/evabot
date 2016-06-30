@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630081614) do
+ActiveRecord::Schema.define(version: 20160630112729) do
+
+  create_table "branches", force: :cascade do |t|
+    t.integer  "repo_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["repo_id"], name: "index_branches_on_repo_id"
+  end
 
   create_table "repos", force: :cascade do |t|
     t.integer  "user_id"
