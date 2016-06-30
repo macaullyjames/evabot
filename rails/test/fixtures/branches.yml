@@ -2,8 +2,8 @@
 
 master:
   repo: evabot
-  name: master
+  name: $LABEL
 
 develop:
   repo: evabot
-  name: develop
+  name: $LABEL

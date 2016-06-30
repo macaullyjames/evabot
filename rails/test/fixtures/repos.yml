@@ -2,8 +2,8 @@
 
 evabot:
   user: macaullyjames
-  name: evabot
+  name: $LABEL
 
 flopbox:
   user: macaullyjames
-  name: flopbox
+  name: $LABEL

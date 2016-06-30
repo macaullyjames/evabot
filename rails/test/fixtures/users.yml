@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 macaullyjames:
-  username: macaullyjames
+  username: $LABEL
   token: "3df2d9bcf85518d108267860ec37598639515024"
 
