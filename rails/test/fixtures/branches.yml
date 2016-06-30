@@ -2,8 +2,8 @@
 
 one:
   repo: one
-  name: MyString
+  name: master
 
 two:
-  repo: two
-  name: MyString
+  repo: one
+  name: develop
