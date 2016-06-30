@@ -2,8 +2,8 @@
 
 one:
   user: one
-  name: MyString
+  name: evabot
 
 two:
-  user: two
-  name: MyString
+  user: one
+  name: correcthorsebatterystaple
