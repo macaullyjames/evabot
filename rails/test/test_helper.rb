@@ -12,6 +12,11 @@ class ActiveSupport::TestCase
     post session_path, params: { session: { token: user&.token } }
   end
 
+  # Sign in with some user
+  def sign_in
+    sign_in_as User.all.sample
+  end
+
   def sign_out
     delete session_path
   end
