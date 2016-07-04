@@ -1,0 +1,23 @@
+#!/bin/bash -l
+
+# This is the Git hook that is run after Travis pushes to the production
+# server. It's pretty basic at the moment: Check out the new
+# version, kill the server and start a new server. 
+#
+# It requires that the server be setup in a certain way, of course. I don't
+# have time to document that now though and we'll most likely move to a more
+# rigorous deployment setup down the line anyway.
+
+git --work-tree=/home/deploy/evabot \
+    --git-dir=/home/deploy/evabot.git checkout -f
+
+cd /home/deploy/evabot/rails
+
+bundle install
+sudo kill $(sudo lsof -i tcp:80 -t)
+RAILS_ENV=production rails db:migrate assets:precompile
+rvmsudo \
+  RAILS_ENV=production \      
+  RAILS_SERVE_STATIC_FILES=true \
+  SECRET_KEY_BASE=`rails secret` \
+  rails server --daemon -e production -p 80 -b 0.0.0.0
