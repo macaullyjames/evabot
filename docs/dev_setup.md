@@ -1,5 +1,5 @@
 ## Getting help
-[![Slack Status](http://slack.evabot.io/badge.svg)](http://slack.evabot.io)
+[![Join our Slack!](https://img.shields.io/badge/slack-join%20us!-e01563.svg)](http://slack.evabot.io)
 [![Open issue](https://img.shields.io/badge/report-issue-yellow.svg)](https://github.com/macaullyjames/evabot/issues/new)
 [![Edit page](https://img.shields.io/badge/edit-page-lightgrey.svg)](https://github.com/macaullyjames/evabot/edit/master/README.md)
 
