@@ -9,6 +9,6 @@ class ActiveSupport::TestCase
   # Sign in as the given user. Passing nil will result in a failed login
   # attempt.
   def sign_in_as(user)
-    post sessions_path, params: { session: { token: user&.token } }
+    post session_path, params: { session: { token: user&.token } }
   end
 end
