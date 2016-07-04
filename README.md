@@ -5,5 +5,6 @@
 
 Welcome to evabot! This is the source code for Eva, the human-friendly static
 analysis bot. See [PR #4](https://github.com/macaullyjames/evabot/pull/4) if
-you to see Eva in action and [docs/dev_setup.md](docs/dev_setup.md) if you want
-to set up a local dev environment 🍻
+you want to see Eva in action and [docs/dev_setup.md](docs/dev_setup.md) if you
+want to set up a local dev environment 🍻
+
