@@ -2,9 +2,13 @@ class SessionsController < ApplicationController
 
   def create
     token = params[:session][:token]
-    username   = User.find_by(token: token)&.username 
-    username ||= Octokit::Client.new(:access_token => token)&.user&.login
-    flash[:error] = username
+    user = User.find_by(token: token)
+    unless user
+      username = Octokit::Client.new(:access_token => token)&.user&.login
+      user = User.create username: username, token: token
+    end
+
+    session[:user_id] = user.id
     redirect_to dashboard_index_path
   rescue
       flash[:error] = 'Invalid token'
