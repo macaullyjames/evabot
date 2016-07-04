@@ -35,4 +35,13 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     get new_session_path
     assert_select '.flash.error', false
   end
+
+  test "logout should work as expected" do
+    sign_out
+    assert_not signed_in?
+
+    sign_in_as users(:macaullyjames)
+    sign_out
+    assert_not signed_in?
+  end
 end
