@@ -52,4 +52,7 @@ Rails.application.configure do
   # A bug in Vagrant/VirtualBox/whatever breaks async change detection, so use
   # polling instead for the time being.
   config.file_watcher = ActiveSupport::FileUpdateChecker
+
+  # Allow the console to be rendered over the Vagrant network
+  config.web_console.whitelisted_ips = '10.0.2.2'
 end
