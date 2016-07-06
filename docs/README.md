@@ -1,5 +1,6 @@
 ## Docs
 [Setting up a local dev environment](dev_setup.md)
+[Setting up a production server](production_setup.md)
 
 ## Getting help
 [![Join our Slack!](https://img.shields.io/badge/slack-join%20us!-e01563.svg)](http://slack.evabot.io)
