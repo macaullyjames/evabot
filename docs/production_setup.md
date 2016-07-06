@@ -33,31 +33,25 @@ too ❤️
 5. Create `~/evabot.git/hooks/post_receive`:
 
   ```bash
-  git --work-tree=/home/deploy/evabot \
-      --git-dir=/home/deploy/evabot.git checkout -f
-  
-  cd /home/deploy/evabot/rails
-  
-  bundle install
-  sudo kill $(sudo lsof -i tcp:80 -t)
-  RAILS_ENV=production rails db:migrate assets:precompile
-  rvmsudo \
-    RAILS_ENV=production \      
-    RAILS_SERVE_STATIC_FILES=true \
-    SECRET_KEY_BASE=`rails secret` \
-    rails server --daemon -e production -p 80 -b 0.0.0.0
+   git --work-tree=/home/deploy/evabot \
+       --git-dir=/home/deploy/evabot.git checkout -f
+   
+   cd /home/deploy/evabot/rails
+   
+   bundle install
+   sudo kill $(sudo lsof -i tcp:80 -t)
+   RAILS_ENV=production rails db:migrate assets:precompile
+   rvmsudo \
+     RAILS_SERVE_STATIC_FILES=true \
+     SECRET_KEY_BASE=`rails secret` \
+     GITHUB_CLIENT_ID="d8d0b61ac86f56b38ad3" \
+     GITHUB_CLIENT_SECRET="<secret>" \
+     rails server --daemon -e production -p 80 -b 0.0.0.0
   ```
   Then run `chmod +x ~/evabot.git/hooks/post-receive` to make the script
   executable.
 
-6. Add the Github application info to `~/.bashrc`:
-
-  ```bash
-  export GITHUB_CLIENT_ID="d8d0b61ac86f56b38ad3"
-  export GITHUB_CLIENT_SECRET="<secret>"
-  ```
-  
-7. Travis should now deploy whenever a `master` build passes. If you want to
+6. Travis should now deploy whenever a `master` build passes. If you want to
    start the server right away just run `~/evabot.git/hooks/post-receive`
    manually.
 
