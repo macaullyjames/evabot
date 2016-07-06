@@ -50,6 +50,12 @@ too ❤️
   Then run `chmod +x ~/evabot.git/hooks/post-receive` to make the script
   executable.
 
+6. Add the Github application info to `~/.bashrc`:
+
+  ```bash
+  export GITHUB_CLIENT_ID="d8d0b61ac86f56b38ad3"
+  export GITHUB_CLIENT_SECRET="<secret>"
+  ```
   
 7. Travis should now deploy whenever a `master` build passes. If you want to
    start the server right away just run `~/evabot.git/hooks/post-receive`
