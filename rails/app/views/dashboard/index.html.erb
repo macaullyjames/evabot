@@ -1,2 +1,7 @@
-<h1>Dashboard#index</h1>
-<%= link_to "Sign out", auth_logout_path %>
+<h1>Dashboard</h1>
+<% if current_user %>
+  <h2>Hi, <%= current_user.username %>!</h2>
+  <%= link_to "Sign out", auth_logout_path %>
+<% else %>
+  Not logged in.
+<% end %>
