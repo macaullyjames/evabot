@@ -18,7 +18,7 @@ class AuthController < ApplicationController
       end
       session[:user_id] = user.id
       flash[:error] = user.username
-      redirect_to dashboard_index_path
+      redirect_to dashboard_url
     else
       flash[:error] = "Oops! Something went wrong."
       redirect_to root_url
