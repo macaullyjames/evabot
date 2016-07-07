@@ -2,27 +2,15 @@ require 'rest-client'
 
 class AuthController < ApplicationController
   def login
-    if params[:code]
-      url = "https://github.com/login/oauth/access_token"
-      post_params = { 
-        client_id: Rails.application.secrets.github_client_id,
-        client_secret: Rails.application.secrets.github_client_secret,
-        code: params[:code]
-      }
-      r = RestClient.post url, post_params, :accept => :json
-      token = JSON.parse(r.body)["access_token"]
-      user = User.find_by token: token
-      unless user
-        username = Octokit::Client.new(:access_token => token)&.user&.login
-        user = User.create username: username, token: token
-      end
-      session[:user_id] = user.id
-      flash[:error] = user.username
-      redirect_to dashboard_url
-    else
-      flash[:error] = "Oops! Something went wrong."
-      redirect_to root_url
-    end
+    params.require :code
+
+    # Exchange the auth code for an access token
+    token = helpers.token_from params[:code]
+
+    # Find or create a user from the access token
+    current_user = helpers.user_from token
+
+    redirect_to dashboard_url
   end
 
   def logout
