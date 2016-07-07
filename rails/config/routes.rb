@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   get 'welcome/index'
   get 'dashboard/index'
   resource :session, only: [:new, :create, :destroy]
-  root 'sessions#new'
+  root 'welcome#index'
 end
