@@ -1,5 +1,14 @@
 module AuthHelper
 
+  def authorization_url
+    params = {
+      client_id: Rails.application.secrets.github_client_id,
+      redirect_uri: auth_callback_url,
+      scope: "email repo admin:org admin:repo_hook"
+    }
+    "https://github.com/login/oauth/authorize?#{params.to_query}"
+  end
+
   # Exchange an authentication code for an access token as part of Github's
   # OAuth authorization code grant flow.
   def token_from auth_code

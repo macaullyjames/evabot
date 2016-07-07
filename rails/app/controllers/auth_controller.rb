@@ -1,15 +1,25 @@
 require 'rest-client'
 
 class AuthController < ApplicationController
+  include AuthHelper
+
   def login
+    if current_user
+      redirect_to dashboard_url
+    else
+      redirect_to authorization_url
+    end
+  end
+
+  def callback
     params.require :code
 
     # Exchange the auth code for an access token
-    token = helpers.token_from params[:code]
-
+    token = token_from params[:code]
     # Find or create a user from the access token
-    current_user = helpers.user_from token
-
+    user = user_from token
+    # Log the user in
+    session[:user_id] = user.id
     redirect_to dashboard_url
   end
 
