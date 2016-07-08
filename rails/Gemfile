@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'rugged'
 gem "octokit"
 gem 'rest-client'
+gem 'mocha'
 
 group :development, :test do
   gem 'byebug', platform: :mri
