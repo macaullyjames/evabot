@@ -1,7 +1,7 @@
 <h1>Dashboard</h1>
 <% if current_user %>
   <h2>Hi, <%= current_user.username %>!</h2>
-  <%= link_to "Sign out", auth_logout_path %>
+  <%= link_to "Sign out", logout_url %>
 <% else %>
   Not logged in.
 <% end %>
