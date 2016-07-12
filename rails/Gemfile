@@ -14,6 +14,7 @@ gem 'rugged'
 gem "octokit"
 gem 'rest-client'
 gem 'mocha'
+gem 'webmock'
 
 group :development, :test do
   gem 'byebug', platform: :mri

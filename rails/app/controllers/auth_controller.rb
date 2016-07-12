@@ -1,26 +1,31 @@
 require 'rest-client'
 
 class AuthController < ApplicationController
-  include AuthHelper
 
   def login
     if current_user
       redirect_to dashboard_url
     else
-      redirect_to authorization_url
+      github_auth_url = "https://github.com/login/oauth/authorize"
+      github_auth_params = {
+        client_id: Rails.application.secrets.github_client_id,
+        redirect_uri: auth_callback_url,
+        scope: "email repo admin:org admin:repo_hook"
+      }
+      redirect_to "#{github_auth_url}?#{github_auth_params.to_query}"
     end
   end
 
   def callback
     params.require :code
-
-    # Exchange the auth code for an access token
-    token = token_from params[:code]
-    # Find or create a user from the access token
-    user = user_from token
-    # Log the user in
-    session[:user_id] = user.id
-    redirect_to dashboard_url
+    user = User.from_code params[:code]
+    if user
+      session[:user_id] = user&.id
+      redirect_to dashboard_url
+    else
+      flash[:error] = "Oops! Something went wrong."
+      redirect_to root_url
+    end
   end
 
   def logout
