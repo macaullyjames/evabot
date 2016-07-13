@@ -2,8 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import 'base/mixins';
-
-.wrapper {
+body.welcome {
   h1 {
     font-weight: 300;
   }
@@ -18,10 +17,10 @@
     text-align: center;
     font-weight: 300;
   }
-}
 
-@include notdesktop {
-  input {
-    font-size:100%;
+  @include notdesktop {
+    input {
+      font-size:100%;
+    }
   }
 }
