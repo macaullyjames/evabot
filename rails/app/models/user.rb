@@ -1,6 +1,12 @@
 class User < ApplicationRecord
   has_many :repos
 
+  def remote
+    client = Octokit::Client.new access_token: token
+    client if client.user
+  rescue Octokit::Unauthorized
+  end
+
   def self.from_code code
     url = "https://github.com/login/oauth/access_token"
     response = RestClient.post url,

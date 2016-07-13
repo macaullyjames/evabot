@@ -16,13 +16,16 @@
   <div class="page">
     <h2>Repos</h2>
 
-    <% if current_user.repos.present? %>
-      <h2>Tracked repos</h2>
-      <% current_user.repos do |repo| %>
-        <li><%= repo.name %></li>
+    <% if current_user.remote %>
+      <p>It looks like you don't have any tracked repos at the moment 😧</p>
+      <ul class="repos">
+      <% current_user.remote.repositories.each do |repo| %>
+        <li>
+          <%= check_box_tag 'accept' %>
+          <%= repo.full_name %>
+        </li>
       <% end %>
-    <% else %>
-      <p>Looks like you don't have any tracked repos at the moment 😧</p>
+      </ul>
     <% end %>
   </div>
 </div>
