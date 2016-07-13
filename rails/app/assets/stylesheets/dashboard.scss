@@ -1,3 +1,45 @@
 // Place all the styles related to the Dashboard controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'base/mixins';
+body.dashboard {
+
+  .user-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.4em;
+    box-sizing: border-box;
+    text-align: right;
+    font-weight: 300;
+  }
+  
+  .page {
+    background: #FFFFFF;
+    text-align: left;
+    padding: 1em;
+    min-height: 80%;
+  }
+
+  h1 {
+    font-weight: 300;
+  }
+
+  h2 {
+    font-weight: normal;
+  }
+
+  h2:after {
+    content: ' ';
+    display: block;
+    margin-top: 0.5em;
+    border: 1px solid #E4E4E4;
+  }
+
+  @include notdesktop {
+    input {
+      font-size:100%;
+    }
+  }
+}

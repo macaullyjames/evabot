@@ -1,7 +1,23 @@
-<h1>Dashboard</h1>
-<% if current_user %>
-  <h2>Hi, <%= current_user.username %>!</h2>
-  <%= link_to "Sign out", logout_url %>
-<% else %>
-  Not logged in.
+<% if current_user.present? %>
+<div class="user-bar">
+  <span><%= current_user.username %></span>
+  <%= link_to "(sign out)", logout_url %>
+</div>
+
+<div class="wrapper">
+  <h1>eva·bot</h1>
+
+  <div class="page">
+    <h2>Repos</h2>
+
+    <% if current_user.repos.present? %>
+      <h2>Tracked repos</h2>
+      <% current_user.repos do |repo| %>
+        <li><%= repo.name %></li>
+      <% end %>
+    <% else %>
+      <p>Looks like you don't have any tracked repos at the moment 😧</p>
+    <% end %>
+  </div>
+</div>
 <% end %>
