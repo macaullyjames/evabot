@@ -15,6 +15,7 @@ gem "octokit"
 gem 'rest-client'
 gem 'mocha'
 gem 'webmock'
+gem 'font-awesome-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri
