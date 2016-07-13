@@ -19,21 +19,4 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test "from_code" do
-    assert_nil(User.from_code "invalid_code")
-
-    oauth_url = "https://github.com/login/oauth/access_token"
-    user = User.all.sample
-    stub_request(:post, oauth_url)
-      .with(headers: { "Accept" => "application/json" })
-      .to_return(body: {
-        access_token: user.token,
-        token_type: "bearer",
-        scope: "admin:org,admin:repo_hook,repo"
-        }.to_json
-      )
-    assert_equal user, User.from_code("any_code")
-
-    assert_requested :post, oauth_url, times: 2
-  end
 end

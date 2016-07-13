@@ -11,8 +11,12 @@ class ActiveSupport::TestCase
   WebMock.allow_net_connect!
 
   def sign_in(as: User.all.sample)
-    User.stubs(:from_code).returns as
-    get auth_callback_url, params: { code: "test" }
+    Octokit.stubs(:exchange_code_for_token).returns(
+      OpenStruct.new body: {
+        "access_token": as.token
+      }.to_json
+    )
+    get auth_callback_url
   end
 
   def sign_out
