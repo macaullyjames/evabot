@@ -21,14 +21,11 @@ class AuthController < ApplicationController
     client_id = Rails.application.secrets.github_client_id
     client_secret = Rails.application.secrets.github_client_secret
     response = Octokit.exchange_code_for_token code, client_id, client_secret
-    token = JSON.parse(response.body)["access_token"]
+    token = response.access_token
 
     user = User.from_token token
     session[:user_id] = user&.id
     redirect_to dashboard_url
-  rescue
-    flash[:error] = "Oops! Something went wrong."
-    redirect_to root_url
   end
 
   def logout
