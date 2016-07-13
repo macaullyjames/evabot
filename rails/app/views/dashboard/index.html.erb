@@ -1,4 +1,3 @@
-<% if current_user.present? %>
 <div class="user-bar">
   <span><%= current_user.username %></span>
   <%= link_to "(sign out)", logout_url %>
@@ -29,4 +28,3 @@
     <% end %>
   </div>
 </div>
-<% end %>
