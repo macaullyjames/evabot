@@ -12,9 +12,7 @@ class ActiveSupport::TestCase
 
   def sign_in(as: User.all.sample)
     Octokit.stubs(:exchange_code_for_token).returns(
-      OpenStruct.new body: {
-        "access_token": as.token
-      }.to_json
+      OpenStruct.new access_token: as.token
     )
     get auth_callback_url
   end
