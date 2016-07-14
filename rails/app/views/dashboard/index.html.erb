@@ -17,35 +17,10 @@
     <h2>Repos</h2>
     <p>It looks like you don't have any tracked repos at the moment 😧</p>
 
-    <% if  current_user.remote %>
-      <% unless @owner_repos.empty? %>
-        <h3>Your repos</h3>
+    <% if current_user.remote %>
+      <% unless @remote_repos.empty? %>
         <ul class="repos">
-          <% @owner_repos.each do |repo| %>
-            <li>
-              <%= check_box_tag 'accept' %>
-              <%= repo.name %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-
-      <% @org_repos.each do |owner_name, repos| %>
-        <h3>Repos in the <%= owner_name %> organization</h3>
-        <ul class="repos">
-          <% repos.each do |repo| %>
-            <li>
-              <%= check_box_tag 'accept' %>
-              <%= repo.full_name %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-
-      <% unless @collaborator_repos.empty? %>
-        <h3>Repos you collaborate in</h3>
-        <ul class="repos">
-          <% @collaborator_repos.each do |repo| %>
+          <% @remote_repos.each do |repo| %>
             <li>
               <%= check_box_tag 'accept' %>
               <%= repo.full_name %>
