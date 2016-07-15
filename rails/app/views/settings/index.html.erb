@@ -22,7 +22,11 @@
           <% @remote_repos.each do |repo| %>
             <tr>
               <td><%= check_box_tag 'accept' %></td>
-              <td><%= repo.owner.login %>/<wbr><%= repo.name %></td>
+              <td>
+                <%= link_to repo.html_url do %>
+                  <%= repo.owner.login %>/<wbr><%= repo.name %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </table>
