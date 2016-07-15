@@ -38,18 +38,28 @@ body.settings {
     padding: 1em;
     min-height: 80%;
 
-    ul.repos {
-      padding: 0;
+    table.repos {
+      width: 100%;
+      border-spacing: 0;
+      font-weight: lighter;
+      word-break: break-all;
 
-      li {
-        list-style-type: none;
-        font-weight: lighter;
-        padding: 0.5em;
-
-        &:nth-child(even) {
+      tr {
+        &:nth-child(odd) {
           background: #F7F7F7;
         }
       }
+
+      td {
+        padding: 0.5em;
+        border: none;
+        
+        &:first-child {
+          width: 1em;
+          text-align: center;
+        }
+      }
+
     }
   }
 

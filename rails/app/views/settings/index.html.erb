@@ -18,14 +18,14 @@
 
     <% if current_user.remote %>
       <% unless @remote_repos.empty? %>
-        <ul class="repos">
+        <table class="repos">
           <% @remote_repos.each do |repo| %>
-            <li>
-              <%= check_box_tag 'accept' %>
-              <%= repo.full_name %>
-            </li>
+            <tr>
+              <td><%= check_box_tag 'accept' %></td>
+              <td><%= repo.full_name %></td>
+            </tr>
           <% end %>
-        </ul>
+        </table>
       <% end %>
     <% else %>
       It looks like you're not connected to Github, hm... 🤔
