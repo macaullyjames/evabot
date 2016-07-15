@@ -52,4 +52,12 @@ body.dashboard {
     margin-top: 0.5em;
     border: 1px solid #E4E4E4;
   }
+
+  @include notdesktop {
+    nav a {
+      display: inline-block;
+      margin-bottom: 0.5em;
+      font-size: 120%
+    }
+  }
 }
