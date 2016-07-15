@@ -1,8 +1,3 @@
-<div class="user-bar">
-  <span><%= current_user.username %></span>
-  <%= link_to "(sign out)", logout_url %>
-</div>
-
 <div class="wrapper">
   <h1>eva·bot</h1>
 
@@ -14,6 +9,10 @@
   </nav>
 
   <div class="page">
+    <h2>Sign out</h2>
+    <p>Click <%= link_to "here", logout_url %> to sign out. Eva will still work
+    in the background! 🎉</p>
+
     <h2>Tracked repos</h2>
     <p>It looks like you don't have any tracked repos at the moment 😧</p>
 
