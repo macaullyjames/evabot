@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import 'base/mixins';
-body.dashboard {
+body.settings {
 
   .user-bar {
     position: absolute;
@@ -33,12 +33,14 @@ body.dashboard {
       text-decoration: none;
       color: inherit;
 
-      &:first-child:after {
+      &:nth-child(2):after {
         content: ' ';
         display: block;
         border: 1px solid #1ABB9C;
       }
     }
+
+
   }
 
   .page {
@@ -46,6 +48,20 @@ body.dashboard {
     text-align: left;
     padding: 1em;
     min-height: 80%;
+
+    ul.repos {
+      padding: 0;
+
+      li {
+        list-style-type: none;
+        font-weight: lighter;
+        padding: 0.5em;
+
+        &:nth-child(even) {
+          background: #F7F7F7;
+        }
+      }
+    }
   }
 
   h1 {

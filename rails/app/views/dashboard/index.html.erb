@@ -7,30 +7,15 @@
   <h1>eva·bot</h1>
 
   <nav class="page-nav">
-    <a href=""><%= fa_icon "bar-chart", text: "Dashboard" %></a> 
-    <a href=""><%= fa_icon "cogs", text: "Settings" %></a> 
-    <a href=""><%= fa_icon "life-ring", text: "Get help" %></a> 
-    <a href=""><%= fa_icon "rocket", text: "Contribute" %></a> 
+    <%= link_to fa_icon("bar-chart", text: "Dashboard"), dashboard_path %>
+    <%= link_to fa_icon("cogs", text: "Settings"), settings_path %>
+    <%= link_to fa_icon("life-ring", text: "Get help"), "" %>
+    <%= link_to fa_icon("rocket", text: "Contribute"), "" %>
   </nav>
 
   <div class="page">
-    <h2>Repos</h2>
-    <p>It looks like you don't have any tracked repos at the moment 😧</p>
-
-    <% if current_user.remote %>
-      <% unless @remote_repos.empty? %>
-        <ul class="repos">
-          <% @remote_repos.each do |repo| %>
-            <li>
-              <%= check_box_tag 'accept' %>
-              <%= repo.full_name %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    <% else %>
-      It looks like you're not connected to Github, hm... 🤔
-    <% end %>
+    <h2>Dashboard</h2>
+    <p>Interesting fact: This page isn't implemented yet 🐒</p>
   </div>
 
 </div>

@@ -1,4 +1,4 @@
-class DashboardController < ApplicationController
+class SettingsController < ApplicationController
   def index
     return redirect_to root_url unless current_user
     if current_user.remote
