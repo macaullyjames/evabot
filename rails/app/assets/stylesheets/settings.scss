@@ -42,7 +42,7 @@ body.settings {
       width: 100%;
       border-spacing: 0;
       font-weight: lighter;
-      word-break: break-all;
+      word-break: break-word;
 
       tr {
         &:nth-child(odd) {
