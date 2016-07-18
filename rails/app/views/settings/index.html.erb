@@ -19,8 +19,8 @@
     <% unless user.repos.empty? %>
       <table class="repos">
         <% user.repos.each do |repo| %>
-          <%= form_for(repo, remote: true) do |f| %>
           <tr>
+            <%= form_for(repo, remote: true) do |f| %>
             <td>
               <%= f.check_box :tracked %>
             <td>
@@ -28,8 +28,8 @@
                 <%= repo.owner %>/<wbr><%= repo.name %>
               <% end %>
             </td>
+            <% end %>
           </tr>
-          <% end %>
         <% end %>
       </table>
     <% end %>
