@@ -42,7 +42,7 @@ class AuthController < ApplicationController
         end
     end
 
-    sign_in user: user
+    sign_in as: user
     redirect_to dashboard_url
   end
 

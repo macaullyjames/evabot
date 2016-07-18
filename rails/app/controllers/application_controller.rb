@@ -11,11 +11,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def sign_in(user: nil, token: nil)
-    if user.present?
-      session[:user_id] = user.id
-    elsif token.present?
-      sign_in user: User.find_by(token: token)
+  def client_id
+    Rails.application.secrets.github_client_id
+  end
+
+  def client_secret
+    Rails.application.secrets.github_client_secret
+  end
+
+  def sign_in(as: nil, **opts)
+    if as.present?
+      session[:user_id] = as.id
+    elsif opts.present?
+      sign_in as: User.find_by(opts)
     end
   end
 
