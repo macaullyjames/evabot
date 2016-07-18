@@ -3,7 +3,7 @@ require 'rest-client'
 class AuthController < ApplicationController
 
   def login
-    if current_user
+    if signed_in?
       redirect_to dashboard_url
     else
       client = Octokit::Client.new

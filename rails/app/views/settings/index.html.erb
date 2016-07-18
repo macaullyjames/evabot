@@ -16,9 +16,9 @@
     <h2>Tracked repos</h2>
     <p>It looks like you don't have any tracked repos at the moment 😧</p>
 
-    <% unless current_user.repos.empty? %>
+    <% unless user.repos.empty? %>
       <table class="repos">
-        <% current_user.repos.each do |repo| %>
+        <% user.repos.each do |repo| %>
           <tr>
             <td><%= check_box_tag 'accept' %></td>
             <td>
