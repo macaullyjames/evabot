@@ -6,13 +6,13 @@ class AuthController < ApplicationController
     if current_user
       redirect_to dashboard_url
     else
-      github_auth_url = "https://github.com/login/oauth/authorize"
-      github_auth_params = {
-        client_id: Rails.application.secrets.github_client_id,
+      client = Octokit::Client.new
+      client_id = Rails.application.secrets.github_client_id
+      auth_url = client.authorize_url client_id,
         redirect_uri: auth_callback_url,
         scope: "email repo admin:org admin:repo_hook"
-      }
-      redirect_to "#{github_auth_url}?#{github_auth_params.to_query}"
+
+      redirect_to auth_url
     end
   end
 
