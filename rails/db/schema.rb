@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630113202) do
+ActiveRecord::Schema.define(version: 20160718093749) do
 
   create_table "branches", force: :cascade do |t|
     t.integer  "repo_id"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160630113202) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "branches_id"
+    t.string   "owner"
     t.index ["branches_id"], name: "index_repos_on_branches_id"
     t.index ["user_id"], name: "index_repos_on_user_id"
   end
