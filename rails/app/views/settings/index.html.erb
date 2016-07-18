@@ -22,7 +22,9 @@
           <tr>
             <td><%= check_box_tag 'accept' %></td>
             <td>
-              <%= repo.name %>
+              <%= link_to repo.url do %>
+                <%= repo.owner %>/<wbr><%= repo.name %>
+              <% end %>
             </td>
           </tr>
         <% end %>
