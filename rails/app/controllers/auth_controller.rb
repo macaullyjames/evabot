@@ -20,24 +20,26 @@ class AuthController < ApplicationController
   end
 
   def callback
-    code = params[:code]
+    token = Octokit.exchange_code_for_token(
+      params[:code],
+      client_id,
+      client_secret
+    ).access_token
 
-    secrets = Rails.application.secrets
-    client_id = secrets.github_client_id
-    client_secret = secrets.github_client_secret
-    response = Octokit.exchange_code_for_token code, client_id, client_secret
-    token = response.access_token
+    username = Octokit::Client.new(access_token: token).user.login
+    user = User.where username: username
 
-    remote = Octokit::Client.new access_token: token
-    user = User.where(username: remote.user.login).first_or_create
-    user.token = token
-
-    remote.repositories.each do |repo|
-      if repo.permissions.admin
-        r = Repo.where(owner: repo.owner.login, name: repo.name).first_or_create
-        r.user_id = user.id
-        r.save
-      end
+    if user.present?
+      user.update token: token
+    else
+      user = User.create(username: username, token: token)
+      user.remote.repositories
+        .select { |r| r.permissions.admin }
+        .each do |r|
+          Repo.where(owner: r.owner.login, name: r.name)
+            .first_or_create
+            .update user_id: user.id
+        end
     end
 
     sign_in user: user
