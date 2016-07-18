@@ -27,7 +27,7 @@ class AuthController < ApplicationController
     ).access_token
 
     username = Octokit::Client.new(access_token: token).user.login
-    user = User.where username: username
+    user = User.find_by username: username
 
     if user.present?
       user.update token: token
