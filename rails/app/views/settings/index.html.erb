@@ -19,14 +19,17 @@
     <% unless user.repos.empty? %>
       <table class="repos">
         <% user.repos.each do |repo| %>
+          <%= form_for(repo, remote: true) do |f| %>
           <tr>
-            <td><%= check_box_tag 'accept' %></td>
+            <td>
+              <%= f.check_box :tracked %>
             <td>
               <%= link_to repo.url do %>
                 <%= repo.owner %>/<wbr><%= repo.name %>
               <% end %>
             </td>
           </tr>
+          <% end %>
         <% end %>
       </table>
     <% end %>
