@@ -11,9 +11,9 @@ class UserTest < ActiveSupport::TestCase
 
     assert_difference 'User.count' do
       # Stub octokit to return a valid user no matter what the token is
-      Octokit::Client.any_instance
-        .stubs(:user)
-        .returns(OpenStruct.new login: "mocked_user")
+      client = Octokit::Client.any_instance
+      client.stubs(:user).returns(OpenStruct.new login: "mocked_user")
+      client.stubs(:repositories).returns []
 
       assert_not_nil(User.from_token "test_token")
     end
