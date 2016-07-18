@@ -18,18 +18,17 @@ class AuthController < ApplicationController
 
   def callback
     code = params[:code]
-    client_id = Rails.application.secrets.github_client_id
-    client_secret = Rails.application.secrets.github_client_secret
+    secrets = Rails.application.secrets
+    client_id = secrets.github_client_id
+    client_secret = secrets.github_client_secret
     response = Octokit.exchange_code_for_token code, client_id, client_secret
-    token = response.access_token
 
-    user = User.from_token token
-    session[:user_id] = user&.id
+    sign_in as: User.from_token(response.access_token)
     redirect_to dashboard_url
   end
 
   def logout
-    reset_session
+    sign_out
     redirect_to root_path
   end
 end
