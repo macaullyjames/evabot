@@ -11,8 +11,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def sign_in(as:)
-    session[:user_id] = as&.id
+  def sign_in(user: nil, token: nil)
+    if user.present?
+      session[:user_id] = user.id
+    elsif token.present?
+      sign_in user: User.find_by(token: token)
+    end
   end
 
   def sign_out
