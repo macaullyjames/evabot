@@ -20,9 +20,11 @@
       <table class="repos">
         <% user.repos.each do |repo| %>
           <tr>
-            <%= form_for(repo, remote: true) do |f| %>
             <td>
+              <div>
+              <%= form_for(repo, remote: true) do |f| %>
               <%= f.check_box :tracked %>
+              </div>
             <td>
               <%= link_to repo.url do %>
                 <%= repo.owner %>/<wbr><%= repo.name %>
