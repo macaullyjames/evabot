@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :repos, only: :update
+  resources :events, only: :create
 
   get 'auth/login',  as: 'login'
   get 'auth/logout', as: 'logout'
