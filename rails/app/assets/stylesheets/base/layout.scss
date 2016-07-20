@@ -8,17 +8,20 @@ html {
 }
 
 body {
-  width: 100%;
-  margin: 0;
+  margin: 0 auto;
   padding-top: 3rem;
+  max-width: 100%;
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
+  text-align: center;
   background: $background-color;
   color: $text-color;
-}
+  @include desktop { width: $wrapper-width; }
+  @include notdesktop { width: 100%; }
 
-a {
-  color: #4375A9;
+  a {
+    color: #4375A9;
+  }
 }
 
 .flash {
@@ -38,20 +41,56 @@ a {
   }
 }
 
-.wrapper {
-  margin: 0 auto;
-  text-align: center;
-  max-width: 100%;
+h1 {
+  margin-bottom: 1em;
+  font-weight: lighter;
 }
 
-@include desktop {
-  .wrapper {
-    width: $wrapper-width;
-  }
-}
-@include notdesktop {
-  .wrapper {
-    width: 100%;
+h2 {
+  font-weight: normal;
+
+  &:after {
+    content: ' ';
+    display: block;
+    margin-top: 0.5em;
+    border: 1px solid $h2-divider-color;
   }
 }
 
+nav {
+  display: inline-block;
+  margin: 0 auto 2em auto;
+  max-width: 80%;
+
+  &:after {
+    content: ' ';
+    display: block;
+    margin-top: 0.5em;
+    border: 0.5px solid $nav-divider-color;
+  }
+
+  a {
+    display: inline-block;
+    margin: 0 1em;
+    text-decoration: none;
+    color: inherit;
+
+    &.active:after {
+      content: ' ';
+      display: block;
+      border: 1px solid $nav-active-color;
+    }
+
+    @include notdesktop {
+      margin-bottom: 0.5em;
+      font-size: 120%
+    }
+  }
+}
+
+main {
+  background: $foreground-color;
+  text-align: left;
+  padding: 1em;
+  min-height: 80%;
+}

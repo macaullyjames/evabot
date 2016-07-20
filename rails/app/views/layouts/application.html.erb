@@ -11,7 +11,7 @@
 
   <body class="<%= controller.controller_name %>">
     <% flash.each do |message_type, message| %>
-    <div class="flash <%= message_type %>"><%= message %></div>
+      <div class="flash <%= message_type %>"><%= message %></div>
     <% end %>
     <%= yield %>
   </body>

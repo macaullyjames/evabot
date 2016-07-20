@@ -1,18 +1,16 @@
-<div class="wrapper paged">
-  <h1>eva·bot</h1>
+<h1>eva·bot</h1>
 
-  <nav>
-    <%= active_link_to fa_icon("bar-chart", text: "Dashboard"),
-          dashboard_path, active: :exclusive %>
-    <%= active_link_to fa_icon("cogs", text: "Settings"),
-          settings_path, active: :exclusive %>
-    <%= active_link_to fa_icon("life-ring", text: "Get help"),
-          "http://slack.evabot.io", active: :exclusive %>
-    <%= active_link_to fa_icon("rocket", text: "Contribute"),
-          "https://github.com/macaullyjames/evabot", active: :exclusive %>
-  </nav>
+<nav>
+  <%= active_link_to fa_icon("bar-chart", text: "Dashboard"),
+        dashboard_path, active: :exclusive %>
+  <%= active_link_to fa_icon("cogs", text: "Settings"),
+        settings_path, active: :exclusive %>
+  <%= active_link_to fa_icon("life-ring", text: "Get help"),
+        "http://slack.evabot.io", active: :exclusive %>
+  <%= active_link_to fa_icon("rocket", text: "Contribute"),
+        "https://github.com/macaullyjames/evabot", active: :exclusive %>
+</nav>
 
-  <main>
-    <%= yield %>
-  </main>
-</div>
+<main>
+  <%= yield %>
+</main>
