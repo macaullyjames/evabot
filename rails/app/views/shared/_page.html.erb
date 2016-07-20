@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <h1>eva·bot</h1>
+
+  <nav class="page-nav">
+    <%= link_to fa_icon("bar-chart", text: "Dashboard"), dashboard_path %>
+    <%= link_to fa_icon("cogs", text: "Settings"), settings_path %>
+    <%= link_to fa_icon("life-ring", text: "Get help"), "" %>
+    <%= link_to fa_icon("rocket", text: "Contribute"), "" %>
+  </nav>
+
+  <div class="page">
+    <%= yield %>
+  </div>
+
+</div>

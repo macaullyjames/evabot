@@ -1,40 +1,28 @@
-<div class="wrapper">
-  <h1>eva·bot</h1>
+<%= render layout: "shared/page" do %>
+  <h2>Sign out</h2>
+  <p>Click <%= link_to "here", logout_url %> to sign out. Eva will still work
+  in the background! 🎉</p>
 
-  <nav class="page-nav">
-    <%= link_to fa_icon("bar-chart", text: "Dashboard"), dashboard_path %>
-    <%= link_to fa_icon("cogs", text: "Settings"), settings_path %>
-    <%= link_to fa_icon("life-ring", text: "Get help"), "" %>
-    <%= link_to fa_icon("rocket", text: "Contribute"), "" %>
-  </nav>
+  <h2>Tracked repos</h2>
+  <p>It looks like you don't have any tracked repos at the moment 😧</p>
 
-  <div class="page">
-    <h2>Sign out</h2>
-    <p>Click <%= link_to "here", logout_url %> to sign out. Eva will still work
-    in the background! 🎉</p>
-
-    <h2>Tracked repos</h2>
-    <p>It looks like you don't have any tracked repos at the moment 😧</p>
-
-    <% unless user.repos.empty? %>
-      <table class="repos">
-        <% user.repos.each do |repo| %>
-          <tr>
-            <td>
-              <div>
-              <%= form_for(repo, remote: true) do |f| %>
-              <%= f.check_box :tracked %>
-              </div>
-            <td>
-              <%= link_to repo.url do %>
-                <%= repo.owner %>/<wbr><%= repo.name %>
-              <% end %>
-            </td>
+  <% unless user.repos.empty? %>
+    <table class="repos">
+      <% user.repos.each do |repo| %>
+        <tr>
+          <td>
+            <div>
+            <%= form_for(repo, remote: true) do |f| %>
+            <%= f.check_box :tracked %>
+            </div>
+          <td>
+            <%= link_to repo.url do %>
+              <%= repo.owner %>/<wbr><%= repo.name %>
             <% end %>
-          </tr>
-        <% end %>
-      </table>
-    <% end %>
-  </div>
-
-</div>
+          </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+<% end %>
