@@ -1,7 +1,7 @@
 @import 'base/mixins';
 @import 'base/colors';
 
-.page-wrapper {
+.paged {
 
   h1 {
     margin-bottom: 1em;
@@ -50,7 +50,7 @@
     }
   }
 
-  .page {
+  main {
     background: #FFFFFF;
     text-align: left;
     padding: 1em;
