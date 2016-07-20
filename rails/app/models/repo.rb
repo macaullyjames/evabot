@@ -3,7 +3,11 @@ class Repo < ApplicationRecord
   has_many :branches
 
   def url
-    "https://github.com/#{owner}/#{name}"
+    "https://github.com/#{full_name}"
+  end
+
+  def full_name
+    "#{owner}/#{name}"
   end
 
 end
