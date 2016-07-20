@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-
+  before_action :ensure_signed_in
   helper_method :user, :sign_in, :sign_out, :signed_in?
 
   def user
@@ -17,6 +17,13 @@ class ApplicationController < ActionController::Base
 
   def client_secret
     Rails.application.secrets.github_client_secret
+  end
+
+  def ensure_signed_in
+    unless signed_in?
+      flash[:error] = "You must be logged in to access this section."
+      redirect_to root_url
+    end
   end
 
   def sign_in(as: nil, **opts)
