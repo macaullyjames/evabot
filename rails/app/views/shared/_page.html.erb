@@ -1,11 +1,15 @@
-<div class="wrapper">
+<div class="wrapper page-wrapper">
   <h1>eva·bot</h1>
 
-  <nav class="page-nav">
-    <%= link_to fa_icon("bar-chart", text: "Dashboard"), dashboard_path %>
-    <%= link_to fa_icon("cogs", text: "Settings"), settings_path %>
-    <%= link_to fa_icon("life-ring", text: "Get help"), "" %>
-    <%= link_to fa_icon("rocket", text: "Contribute"), "" %>
+  <nav>
+    <%= active_link_to fa_icon("bar-chart", text: "Dashboard"),
+          dashboard_path, active: :exclusive %>
+    <%= active_link_to fa_icon("cogs", text: "Settings"),
+          settings_path, active: :exclusive %>
+    <%= active_link_to fa_icon("life-ring", text: "Get help"),
+          "http://slack.evabot.io", active: :exclusive %>
+    <%= active_link_to fa_icon("rocket", text: "Contribute"),
+          "https://github.com/macaullyjames/evabot", active: :exclusive %>
   </nav>
 
   <div class="page">

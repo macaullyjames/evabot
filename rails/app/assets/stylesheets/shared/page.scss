@@ -1,0 +1,60 @@
+@import 'base/mixins';
+@import 'base/colors';
+
+.page-wrapper {
+
+  h1 {
+    margin-bottom: 1em;
+    font-weight: lighter;
+  }
+
+  h2 {
+    font-weight: normal;
+
+    &:after {
+      content: ' ';
+      display: block;
+      margin-top: 0.5em;
+      border: 1px solid #E4E4E4;
+    }
+  }
+
+  nav {
+    display: inline-block;
+    margin: 0 auto 2em auto;
+    max-width: 80%;
+
+    &:after {
+      content: ' ';
+      display: block;
+      margin-top: 0.5em;
+      border: 0.5px solid #D6D6D6;
+    }
+  
+    a {
+      display: inline-block;
+      margin: 0 1em;
+      text-decoration: none;
+      color: inherit;
+
+      &.active:after {
+        content: ' ';
+        display: block;
+        border: 1px solid #1ABB9C;
+      }
+
+      @include notdesktop {
+        margin-bottom: 0.5em;
+        font-size: 120%
+      }
+    }
+  }
+
+  .page {
+    background: #FFFFFF;
+    text-align: left;
+    padding: 1em;
+    min-height: 80%;
+  }
+
+}

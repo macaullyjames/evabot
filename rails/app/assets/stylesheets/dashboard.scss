@@ -1,63 +1,6 @@
 // Place all the styles related to the Dashboard controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-@import 'base/mixins';
 body.dashboard {
 
-  nav {
-    display: inline-block;
-    margin: 0 auto 2em auto;
-    max-width: 80%;
-
-    &:after {
-      content: ' ';
-      display: block;
-      margin-top: 0.5em;
-      border: 0.5px solid #D6D6D6;
-    }
-  
-    a {
-      display: inline-block;
-      margin: 0 1em;
-      text-decoration: none;
-      color: inherit;
-
-      &:first-child:after {
-        content: ' ';
-        display: block;
-        border: 1px solid #1ABB9C;
-      }
-    }
-  }
-
-  .page {
-    background: #FFFFFF;
-    text-align: left;
-    padding: 1em;
-    min-height: 80%;
-  }
-
-  h1 {
-    margin-bottom: 1em;
-    font-weight: lighter;
-  }
-
-  h2 {
-    font-weight: normal;
-  }
-
-  h2:after {
-    content: ' ';
-    display: block;
-    margin-top: 0.5em;
-    border: 1px solid #E4E4E4;
-  }
-
-  @include notdesktop {
-    nav a {
-      display: inline-block;
-      margin-bottom: 0.5em;
-      font-size: 120%
-    }
-  }
 }
