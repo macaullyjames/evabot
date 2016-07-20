@@ -1,6 +1,5 @@
 class EventsController < ApplicationController
-
-  def create
-  end
+  include Hookable
+  skip_before_action :ensure_signed_in
 
 end
