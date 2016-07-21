@@ -3,7 +3,7 @@ class ReposController < ApplicationController
   def update
     repo = Repo.find params[:id]
     if user == repo&.user
-      repo.update_attributes repo_params
+      repo.update repo_params
     end
   end
 
