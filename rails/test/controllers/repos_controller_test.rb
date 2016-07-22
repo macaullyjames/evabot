@@ -3,7 +3,13 @@ require 'test_helper'
 class ReposControllerTest < ActionDispatch::IntegrationTest
 
   setup do
-    @user = users :macaullyjames
+    RemoteStub = Struct.new "RemoteStub" do
+      def edit_hook(*args)
+        true
+      end
+    end
+
+    User.any_instance.stubs(:remote).returns(RemoteStub.new)
   end
 
   test "should be able to track/untrack repos" do

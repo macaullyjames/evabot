@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718113218) do
+ActiveRecord::Schema.define(version: 20160722100044) do
 
   create_table "branches", force: :cascade do |t|
     t.integer  "repo_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160718113218) do
     t.integer  "branches_id"
     t.string   "owner"
     t.boolean  "tracked"
+    t.integer  "hook_id"
     t.index ["branches_id"], name: "index_repos_on_branches_id"
     t.index ["user_id"], name: "index_repos_on_user_id"
   end

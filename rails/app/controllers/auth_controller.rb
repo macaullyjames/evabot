@@ -43,6 +43,22 @@ class AuthController < ApplicationController
         end
     end
 
+    user.repos.each do |repo|
+      if repo.hook_id.blank?
+        hook = user.remote.create_hook(
+          repo.full_name,
+          "web",
+          {
+            url: events_url,
+            content_type: "json"
+          },
+          events: [ "*" ],
+          active: repo.tracked?
+        )
+        repo.update hook_id: hook.id
+      end
+    end
+
     sign_in as: user
     redirect_to dashboard_url
   end
