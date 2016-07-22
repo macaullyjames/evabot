@@ -8,11 +8,11 @@ class EventsController < ApplicationController
       name: pr[:base][:repo][:name],
       owner: pr[:base][:repo][:owner][:login]
     )
-    user = repo.user
-    user.remote.add_comment(
+    eva.remote.add_comment(
       repo.full_name,
       pr[:number],
       "Thanks for the PR 👌🏻"
     )
   end
+
 end

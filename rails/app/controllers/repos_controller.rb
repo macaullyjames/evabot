@@ -14,6 +14,14 @@ class ReposController < ApplicationController
       events: [ "*" ],
       active: repo.tracked?
     )
+
+    is_collaborator = user.remote.collaborator?(repo.full_name, eva.username)
+    if repo.tracked? and not is_collaborator
+      user.remote.add_collaborator(repo.full_name, eva.username)
+    elsif not repo.tracked? and is_collaborator
+      user.remote.remove_collaborator(repo.full_name, eva.username)
+    end
+
   end
 
   private

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :ensure_signed_in
-  helper_method :user, :sign_in, :sign_out, :signed_in?
+  helper_method :user, :sign_in, :sign_out, :signed_in?, :eva
 
   def user
     if session[:user_id]
@@ -40,6 +40,10 @@ class ApplicationController < ActionController::Base
 
   def signed_in?
     user.present?
+  end
+
+  def eva
+    @eva ||= User.find_by username: "eva-bot"
   end
 
 end

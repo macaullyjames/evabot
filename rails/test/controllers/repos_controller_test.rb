@@ -4,8 +4,7 @@ class ReposControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     RemoteStub = Struct.new "RemoteStub" do
-      def edit_hook(*args)
-        true
+      def method_missing(method_sym, *arguments, &block)
       end
     end
 
