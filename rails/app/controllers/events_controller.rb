@@ -2,4 +2,17 @@ class EventsController < ApplicationController
   include Hookable
   skip_before_action :ensure_signed_in
 
+  def pull_request_event
+    pr = params[:pull_request]
+    repo = Repo.find_by(
+      name: pr[:base][:repo][:name],
+      owner: pr[:base][:repo][:owner][:login]
+    )
+    user = repo.user
+    user.remote.add_comment(
+      repo.full_name,
+      pr[:number],
+      "Thanks for the PR 👌🏻"
+    )
+  end
 end

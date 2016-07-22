@@ -9,8 +9,8 @@ module Hookable
     if event_name.blank?
       head :bad_request
     else
-      if self.respond_to? event_method
-        send event_method, JSON.parse(request.body)
+      if respond_to? event_method
+        public_send event_method
       else
         logger.info "Unhandled hook: #{event_name}"
       end
