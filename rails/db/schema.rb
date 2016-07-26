@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160726084544) do
+ActiveRecord::Schema.define(version: 20160726090829) do
 
   create_table "branches", force: :cascade do |t|
     t.integer  "repo_id"
@@ -26,9 +26,12 @@ ActiveRecord::Schema.define(version: 20160726084544) do
   end
 
   create_table "owners", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "login"
+    t.string   "ownerable_type"
+    t.integer  "ownerable_id"
+    t.index ["ownerable_type", "ownerable_id"], name: "index_owners_on_ownerable_type_and_ownerable_id"
   end
 
   create_table "repos", force: :cascade do |t|
