@@ -27,24 +27,24 @@ class AuthController < ApplicationController
       client_secret
     ).access_token
 
-    username = Octokit::Client.new(access_token: token).user.login
-    user = User.find_by username: username
+    # Find or create the user
+    login = Octokit::Client.new(access_token: token).user.login
+    user = User.find_by(username: login).first_or_create
+    user.update token: token
 
-    if user.present?
-      user.update token: token
-    else
-      user = User.create username: username, token: token
-      user.remote.repositories
-        .select { |r| r.permissions.admin }
-        .each do |r|
-          Repo.where(owner: r.owner.login, name: r.name)
-            .first_or_create
-            .update user_id: user.id, tracked: false
-        end
+    # Create an Owner from the user
+    owner = Owner.where(ownerable: user).first_or_create
+
+    # Create the repos
+    if user.repos.blank?
+      user.remote.repos(nil, affiliation: :owner).each do |r|
+        Repo.where(owner: r.owner.login, name: r.name)
+          .first_or_create
+          .update user_id: user.id, tracked: false
+      end
     end
 
-    Owner.where(ownerable: user).first_or_create
-
+    # Create the repo hooks
     user.repos.each do |repo|
       if repo.hook_id.blank?
         hook = user.remote.create_hook(
