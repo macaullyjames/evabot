@@ -33,15 +33,17 @@ class AuthController < ApplicationController
     if user.present?
       user.update token: token
     else
-      user = User.create(username: username, token: token)
+      user = User.create username: username, token: token
       user.remote.repositories
         .select { |r| r.permissions.admin }
         .each do |r|
           Repo.where(owner: r.owner.login, name: r.name)
             .first_or_create
-            .update user_id: user.id
+            .update user_id: user.id, tracked: false
         end
     end
+
+    Owner.where(ownerable: user).first_or_create
 
     user.repos.each do |repo|
       if repo.hook_id.blank?
