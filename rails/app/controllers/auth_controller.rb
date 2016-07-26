@@ -29,7 +29,7 @@ class AuthController < ApplicationController
 
     # Find or create the user
     login = Octokit::Client.new(access_token: token).user.login
-    user = User.find_by(username: login).first_or_create
+    user = User.where(username: login).first_or_create
     user.update token: token
 
     # Create an Owner from the user
@@ -58,6 +58,30 @@ class AuthController < ApplicationController
           active: repo.tracked?
         )
         repo.update hook_id: hook.id
+      end
+    end
+
+    # Create the user's organizations
+    if user.orgs.blank?
+      user.remote.orgs.each do |o|
+        org = Organization.where(login: o.login).first_or_create
+        org.users << user
+      end
+    end
+
+    # Create the user's teams
+    if user.teams.blank?
+      user.remote.user_teams.each do |t|
+        if t.permission == "admin"
+          team = Team.find_by(remote_id: t.id)
+          team ||= Team.create(
+            organization: Organization.find_by(login: t.orgnization.login),
+            remote_id: t.id,
+            slug: t.slug,
+            permission: t.permission 
+          )
+          team.users << user
+        end
       end
     end
 
