@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :owners
   resources :organizations
   resources :repos, only: :update
   resources :events, only: :create
