@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :repos
   has_and_belongs_to_many :organizations
+  has_and_belongs_to_many :teams
 
   def remote
     client = Octokit::Client.new access_token: token
