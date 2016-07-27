@@ -3,7 +3,7 @@ require 'test_helper'
 class OwnersControllerTest < ActionDispatch::IntegrationTest
   setup do
     sign_in
-    @owner = owners(:one)
+    @owner = Owner.first
   end
 
   test "should get index" do

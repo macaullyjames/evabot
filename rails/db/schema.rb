@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727162736) do
+ActiveRecord::Schema.define(version: 20160727193018) do
 
   create_table "Organizations_Users", id: false, force: :cascade do |t|
     t.integer "user_id",         null: false
@@ -45,16 +45,15 @@ ActiveRecord::Schema.define(version: 20160727162736) do
   end
 
   create_table "repos", force: :cascade do |t|
-    t.integer  "user_id"
     t.string   "name"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "branches_id"
-    t.string   "owner_name"
     t.boolean  "tracked"
     t.integer  "hook_id"
+    t.integer  "owner_id"
     t.index ["branches_id"], name: "index_repos_on_branches_id"
-    t.index ["user_id"], name: "index_repos_on_user_id"
+    t.index ["owner_id"], name: "index_repos_on_owner_id"
   end
 
   create_table "team_permissions", id: false, force: :cascade do |t|
@@ -75,12 +74,10 @@ ActiveRecord::Schema.define(version: 20160727162736) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "username"
     t.string   "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "repos_id"
-    t.index ["repos_id"], name: "index_users_on_repos_id"
+    t.string   "login"
   end
 
 end

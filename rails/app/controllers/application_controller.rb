@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def eva
-    @eva ||= User.find_by username: "eva-bot"
+    @eva ||= User.find_by login: "eva-bot"
   end
 
 end

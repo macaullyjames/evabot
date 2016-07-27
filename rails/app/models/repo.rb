@@ -1,5 +1,5 @@
 class Repo < ApplicationRecord
-  belongs_to :user
+  belongs_to :owner
   has_many :branches
   has_many :team_permissions
   has_many :teams, through: :team_permissions
@@ -9,7 +9,7 @@ class Repo < ApplicationRecord
   end
 
   def full_name
-    "#{owner_name}/#{name}"
+    "#{owner.login}/#{name}"
   end
 
 end

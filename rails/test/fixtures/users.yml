@@ -1,9 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 macaullyjames:
-  username: $LABEL
+  login: $LABEL
   token: "3df2d9bcf85518d108267860ec37598639515024"
+
 eva-bot:
-  username: $LABEL
+  login: $LABEL
   token: "68145581aba6575c36365584678f7d4c03e92903"
 

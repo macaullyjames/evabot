@@ -3,7 +3,7 @@ require 'test_helper'
 class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   setup do
     sign_in
-    @organization = organizations(:one)
+    @organization = Organization.first
   end
 
   test "should get index" do

@@ -29,18 +29,20 @@ class AuthController < ApplicationController
 
     # Find or create the user
     login = Octokit::Client.new(access_token: token).user.login
-    user = User.where(username: login).first_or_create
+    user = User.where(login: login).first_or_create
     user.update token: token
 
     # Create an Owner from the user
-    owner = Owner.where(ownerable: user).first_or_create
+    Owner.where(ownerable: user).first_or_create
 
     # Create the repos
     if user.repos.blank?
       user.remote.repos(nil, affiliation: :owner).each do |r|
-        Repo.where(owner: r.owner.login, name: r.name)
-          .first_or_create
-          .update user_id: user.id, tracked: false
+        user.owner.repos << Repo.create(
+          owner: user.owner,
+          name: r.name,
+          tracked: false
+        )
       end
     end
 
@@ -66,6 +68,7 @@ class AuthController < ApplicationController
       user.remote.orgs.each do |o|
         org = Organization.where(login: o.login).first_or_create
         org.users << user
+        Owner.where(ownerable: org).first_or_create
       end
     end
 
@@ -89,8 +92,9 @@ class AuthController < ApplicationController
     user.teams.each do |team|
       if team.repos.blank?
         user.remote.team_repos(team.remote_id).each do |r|
-          repo = Repo.where(owner: r.owner.login, name: r.name).first_or_create
-          repo.update user_id: user.id, tracked: false
+          owner = Owner.find_by ownerable: team.organization
+          repo = Repo.where(owner: owner, name: r.name).first_or_create
+          repo.update tracked: false
           permission =
             if r.permissions.admin then :admin
             elsif r.permissions.push then :push
