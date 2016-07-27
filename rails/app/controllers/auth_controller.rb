@@ -35,16 +35,7 @@ class AuthController < ApplicationController
     # Create an Owner from the user
     Owner.where(ownerable: user).first_or_create
 
-    # Create the repos
-    if user.repos.blank?
-      user.remote.repos(nil, affiliation: :owner).each do |r|
-        user.owner.repos << Repo.create(
-          owner: user.owner,
-          name: r.name,
-          tracked: false
-        )
-      end
-    end
+    user.sync by: :fetching
 
     # Create the repo hooks
     user.repos.each do |repo|
@@ -62,31 +53,6 @@ class AuthController < ApplicationController
         repo.update hook_id: hook.id
       end
     end
-
-    # Create the user's organizations
-    if user.orgs.blank?
-      user.remote.orgs.each do |o|
-        org = Organization.where(login: o.login).first_or_create
-        org.users << user
-        Owner.where(ownerable: org).first_or_create
-      end
-    end
-
-    # Create the user's teams
-    if user.teams.blank?
-      user.remote.user_teams.each do |t|
-        team = Team.find_by(remote_id: t.id)
-        team ||= Team.create(
-          organization: Organization.find_by(login: t.organization.login),
-          remote_id: t.id,
-          slug: t.slug,
-          permission: t.permission
-        )
-        team.users << user
-      end
-    end
-
-    user.reload
 
     # Create the team's repos
     user.teams.each do |team|
