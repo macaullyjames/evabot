@@ -46,7 +46,7 @@ class AuthController < ApplicationController
 
     # Create the repo hooks
     user.repos.each do |repo|
-      if repo.hook_id.blank?
+      if repo.owner == user.login and repo.hook_id.blank?
         hook = user.remote.create_hook(
           repo.full_name,
           "web",
@@ -72,15 +72,49 @@ class AuthController < ApplicationController
     # Create the user's teams
     if user.teams.blank?
       user.remote.user_teams.each do |t|
-        if t.permission == "admin"
-          team = Team.find_by(remote_id: t.id)
-          team ||= Team.create(
-            organization: Organization.find_by(login: t.orgnization.login),
-            remote_id: t.id,
-            slug: t.slug,
-            permission: t.permission 
+        team = Team.find_by(remote_id: t.id)
+        team ||= Team.create(
+          organization: Organization.find_by(login: t.organization.login),
+          remote_id: t.id,
+          slug: t.slug,
+          permission: t.permission
+        )
+        team.users << user
+      end
+    end
+
+    user.reload
+
+    # Create the team's repos
+    user.teams.each do |team|
+      if team.repos.blank?
+        user.remote.team_repos(team.remote_id).each do |r|
+          repo = Repo.where(owner: r.owner.login, name: r.name).first_or_create
+          repo.update user_id: user.id, tracked: false
+          permission =
+            if r.permissions.admin then :admin
+            elsif r.permissions.push then :push
+            elsif r.permissions.pull then :pull
+            else :none
+            end
+          TeamPermission.create(
+            team: team,
+            repo: repo,
+            permission: permission
           )
-          team.users << user
+          if repo.hook_id.blank? and permission == :admin
+            hook = user.remote.create_hook(
+              repo.full_name,
+              "web",
+              {
+                url: events_url,
+                content_type: "json"
+              },
+              events: [ "*" ],
+              active: repo.tracked?
+            )
+            repo.update hook_id: hook.id
+          end
         end
       end
     end
