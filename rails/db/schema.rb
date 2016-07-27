@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727193018) do
+ActiveRecord::Schema.define(version: 20160727222927) do
 
   create_table "Organizations_Users", id: false, force: :cascade do |t|
     t.integer "user_id",         null: false
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20160727193018) do
     t.index ["owner_id"], name: "index_repos_on_owner_id"
   end
 
-  create_table "team_permissions", id: false, force: :cascade do |t|
+  create_table "team_permissions", force: :cascade do |t|
     t.integer "team_id",    null: false
     t.integer "repo_id",    null: false
     t.string  "permission"

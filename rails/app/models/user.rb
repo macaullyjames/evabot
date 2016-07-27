@@ -57,6 +57,9 @@ class User < ApplicationRecord
       )
       team.users << self
     end
+
+    repos.each { |r| r.sync by: :fetching, as: self }
+    teams.each { |t| t.sync by: :fetching, as: self }
   end
 
 end

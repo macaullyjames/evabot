@@ -37,58 +37,6 @@ class AuthController < ApplicationController
 
     user.sync by: :fetching
 
-    # Create the repo hooks
-    user.repos.each do |repo|
-      if repo.owner == user.login and repo.hook_id.blank?
-        hook = user.remote.create_hook(
-          repo.full_name,
-          "web",
-          {
-            url: events_url,
-            content_type: "json"
-          },
-          events: [ "*" ],
-          active: repo.tracked?
-        )
-        repo.update hook_id: hook.id
-      end
-    end
-
-    # Create the team's repos
-    user.teams.each do |team|
-      if team.repos.blank?
-        user.remote.team_repos(team.remote_id).each do |r|
-          owner = Owner.find_by ownerable: team.organization
-          repo = Repo.where(owner: owner, name: r.name).first_or_create
-          repo.update tracked: false
-          permission =
-            if r.permissions.admin then :admin
-            elsif r.permissions.push then :push
-            elsif r.permissions.pull then :pull
-            else :none
-            end
-          TeamPermission.create(
-            team: team,
-            repo: repo,
-            permission: permission
-          )
-          if repo.hook_id.blank? and permission == :admin
-            hook = user.remote.create_hook(
-              repo.full_name,
-              "web",
-              {
-                url: events_url,
-                content_type: "json"
-              },
-              events: [ "*" ],
-              active: repo.tracked?
-            )
-            repo.update hook_id: hook.id
-          end
-        end
-      end
-    end
-
     sign_in as: user
     redirect_to dashboard_url
   end
