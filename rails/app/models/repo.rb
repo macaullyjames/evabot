@@ -1,7 +1,7 @@
 class Repo < ApplicationRecord
   belongs_to :user
   has_many :branches
-  has_and_belongs_to_many :teams
+  has_many :teams, through: :team_permissions
 
   def url
     "https://github.com/#{full_name}"
