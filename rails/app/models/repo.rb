@@ -9,7 +9,7 @@ class Repo < ApplicationRecord
   end
 
   def full_name
-    "#{owner}/#{name}"
+    "#{owner_name}/#{name}"
   end
 
 end

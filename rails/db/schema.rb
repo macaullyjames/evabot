@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727111555) do
+ActiveRecord::Schema.define(version: 20160727162736) do
 
   create_table "Organizations_Users", id: false, force: :cascade do |t|
     t.integer "user_id",         null: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20160727111555) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "branches_id"
-    t.string   "owner"
+    t.string   "owner_name"
     t.boolean  "tracked"
     t.integer  "hook_id"
     t.index ["branches_id"], name: "index_repos_on_branches_id"
