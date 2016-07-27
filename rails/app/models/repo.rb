@@ -1,6 +1,7 @@
 class Repo < ApplicationRecord
   belongs_to :user
   has_many :branches
+  has_many :team_permissions
   has_many :teams, through: :team_permissions
 
   def url
