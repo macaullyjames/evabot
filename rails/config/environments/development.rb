@@ -55,4 +55,6 @@ Rails.application.configure do
 
   # Allow the console to be rendered over the Vagrant network
   config.web_console.whitelisted_ips = '10.0.2.2'
+
+  config.host = "localhost:3000"
 end
