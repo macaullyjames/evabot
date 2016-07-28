@@ -20,24 +20,16 @@ class Team < ApplicationRecord
           tracked: false
         )
 
-        remote_permission = begin 
-          if r.permissions.admin then :admin
-          elsif r.permissions.push then :push
-          elsif r.permissions.pull then :pull
-          else :none
-          end
-        end
-
         permission = TeamPermission.where(
           team: self,
           repo: repo
         ).first_or_create
         permission.update permission: begin 
-            if r.permissions.admin then :admin
-            elsif r.permissions.push then :push
-            elsif r.permissions.pull then :pull
-            else :none
-            end
+          if r.permissions.admin then :admin
+          elsif r.permissions.push then :push
+          elsif r.permissions.pull then :pull
+          else :none
+          end
         end
       end
       repos.each { |r| r.sync by: :fetching, as: as }
