@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include Syncable
+  include UserSyncRules
 
   has_and_belongs_to_many :organizations
   has_and_belongs_to_many :teams

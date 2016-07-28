@@ -27,12 +27,10 @@ class AuthController < ApplicationController
       client_secret
     ).access_token
 
-    # Find or create the user
     login = Octokit::Client.new(access_token: token).user.login
     user = User.where(login: login).first_or_create
     user.update token: token
 
-    # Create an Owner from the user
     Owner.where(ownerable: user).first_or_create
 
     user.sync by: :fetching
