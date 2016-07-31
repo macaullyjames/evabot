@@ -14,7 +14,7 @@ class Repo < ApplicationRecord
     "#{owner.login}/#{name}"
   end
 
-  def sync(by:, as:)
+  def sync(by:, as: self)
     if by == :fetching
       can_hook = (owner == as.owner)
       can_hook ||= teams.find_all{|t| t.users.include? as}.any? do |t|
@@ -42,4 +42,23 @@ class Repo < ApplicationRecord
       end
     end
   end
+
+  def self.sync(by:, as:)
+    remote_repos = as.remote.repos nil, affiliation: :owner
+    all.each do |repo|
+      repo.destroy unless remote_repos.any? do |r|
+        r.full_name == repo.full_name
+      end
+    end
+    remote_repos.each do |r|
+      repo = Repo.find_by owner: as.owner, name: r.name 
+      repo ||= create(
+        owner: as.owner,
+        name: r.name,
+        tracked: false
+      )
+    end
+    all.each { |r| r.sync by: by, as: as }
+  end
+
 end

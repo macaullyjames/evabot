@@ -14,7 +14,7 @@ class Team < ApplicationRecord
       end
       remote_repos.each do |r|
         repo = Repo.find_by owner: organization.owner, name: r.name 
-        repo ||= Repo.create(
+        repo ||= create(
           owner: organization.owner,
           name: r.name,
           tracked: false
@@ -32,8 +32,22 @@ class Team < ApplicationRecord
           end
         end
       end
-      repos.each { |r| r.sync by: :fetching, as: as }
+      repos.each { |r| r.sync by: by, as: as }
     end
+  end
+
+  def self.sync(by:, as:)
+    as.remote.user_teams.each do |t|
+      team = Team.find_by(remote_id: t.id)
+      team ||= create(
+        organization: Organization.find_by(login: t.organization.login),
+        remote_id: t.id,
+        slug: t.slug,
+        permission: t.permission
+      )
+      team.users << as
+    end
+    all.each { |t| t.sync by: by, as: as }
   end
 
 end
