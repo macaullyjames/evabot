@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include SyncableUser
 
   has_and_belongs_to_many :organizations
   has_and_belongs_to_many :teams
@@ -16,16 +17,6 @@ class User < ApplicationRecord
 
   def repos
     owner.repos
-  end
-
-  def sync(by:, as: self)
-    orgs.sync by: by, as: as
-    repos.sync by: by, as: as
-    teams.sync by: by, as: as
-  end
-
-  def self.sync(by:, as:)
-    all.each { |u| u.sync by: by, as: as }
   end
 
 end
