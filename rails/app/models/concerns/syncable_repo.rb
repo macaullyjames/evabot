@@ -41,9 +41,9 @@ module SyncableRepo
 
     def sync_by_fetching(as, owner)
       remote_repos =
-        if owner.is_a? User
+        if owner.ownerable.is_a? User
           as.remote.repos owner.login, affiliation: :owner
-        elsif owner.is_a? Organization
+        elsif owner.ownerable.is_a? Organization
           as.remote.org_repos owner.login
         end
       all.each do |repo|
@@ -52,9 +52,9 @@ module SyncableRepo
         end
       end
       remote_repos.each do |r|
-        repo = Repo.find_by owner: owner.owner, name: r.name 
+        repo = Repo.find_by owner: owner, name: r.name 
         repo ||= Repo.create(
-          owner: owner.owner,
+          owner: owner,
           name: r.name,
           tracked: false
         )

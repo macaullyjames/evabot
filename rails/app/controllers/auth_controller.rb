@@ -28,12 +28,13 @@ class AuthController < ApplicationController
     ).access_token
 
     login = Octokit::Client.new(access_token: token).user.login
-    user = User.where(login: login).first_or_create
-    user.update token: token
-
-    Owner.where(ownerable: user).first_or_create
-
-    user.sync by: :fetching
+    user = User.find_by login: login
+    if user.blank?
+      user = User.create login: login, token: token
+      user.sync by: :fetching
+    else
+      user.update token: token
+    end
 
     sign_in as: user
     redirect_to dashboard_url

@@ -2,7 +2,7 @@ module SyncableOrganization
   extend ActiveSupport::Concern
 
   def sync(by:, as:)
-    repos.sync by: by, as: as, owner: self
+    repos.sync by: by, as: as, owner: owner
     teams.sync by: by, as: as
   end
 

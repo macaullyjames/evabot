@@ -3,7 +3,7 @@ module SyncableUser
 
   def sync(by:, as: self)
     orgs.sync by: by, as: as
-    repos.sync by: by, as: as, owner: self
+    repos.sync by: by, as: as, owner: owner
   end
 
   class_methods do

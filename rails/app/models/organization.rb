@@ -8,4 +8,7 @@ class Organization < ApplicationRecord
     owner.repos
   end
 
+  after_create do
+    owner = Owner.where(ownerable: self).first_or_create
+  end
 end
