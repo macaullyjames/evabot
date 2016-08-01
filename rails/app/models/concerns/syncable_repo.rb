@@ -34,23 +34,27 @@ module SyncableRepo
   end
 
   class_methods do
-    def sync(by:, as:)
-      sync_by_fetching(as) if by == :fetching
+    def sync(by:, as:, owner:)
+      sync_by_fetching(as, owner) if by == :fetching
       all.each { |r| r.sync by: by, as: as }
     end
 
-    def sync_by_fetching(as)
-      # TODO: Fetch org repos
-      remote_repos = as.remote.repos nil, affiliation: :owner
+    def sync_by_fetching(as, owner)
+      remote_repos =
+        if owner.is_a? User
+          as.remote.repos owner.login, affiliation: :owner
+        elsif owner.is_a? Organization
+          as.remote.org_repos owner.login
+        end
       all.each do |repo|
         repo.destroy unless remote_repos.any? do |r|
           r.full_name == repo.full_name
         end
       end
       remote_repos.each do |r|
-        repo = Repo.find_by owner: as.owner, name: r.name 
+        repo = Repo.find_by owner: owner.owner, name: r.name 
         repo ||= Repo.create(
-          owner: as.owner,
+          owner: owner.owner,
           name: r.name,
           tracked: false
         )

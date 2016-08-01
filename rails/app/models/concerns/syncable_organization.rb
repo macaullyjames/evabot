@@ -2,8 +2,8 @@ module SyncableOrganization
   extend ActiveSupport::Concern
 
   def sync(by:, as:)
-    #repos.sync by: by, as: as
-    #teams.sync by: by, as: as
+    repos.sync by: by, as: as, owner: self
+    teams.sync by: by, as: as
   end
 
   class_methods do

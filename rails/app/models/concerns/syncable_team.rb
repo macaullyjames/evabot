@@ -2,7 +2,7 @@ module SyncableTeam
   extend ActiveSupport::Concern
 
   def sync(by:, as:)
-    repos.sync by: by, as: as
+    repos.sync by: by, as: as, owner: organization
     sync_by_fetching(as) if by == :fetching
   end
 
