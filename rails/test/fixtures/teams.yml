@@ -1,15 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  remote_id: 1
-  name: MyString
-  slug: MyString
-  permission: MyString
-  organization: one
+evacorp_admin:
+  name: $LABEL
+  organization: evacorp
+  users: macaullyjames
 
-two:
-  remote_id: 1
-  name: MyString
-  slug: MyString
-  permission: MyString
-  organization: two
+evacorp_push:
+  name: $LABEL
+  organization: evacorp
+  users: macaullyjames
+
+evacorp_pull:
+  name: $LABEL
+  organization: evacorp
+  users: macaullyjames
+

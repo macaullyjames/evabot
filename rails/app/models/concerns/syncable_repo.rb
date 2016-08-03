@@ -2,16 +2,12 @@ module SyncableRepo
   extend ActiveSupport::Concern
   include Rails.application.routes.url_helpers
 
-  def sync(by:, as: self)
+  def sync(by:, as:)
     sync_by_fetching(as) if by == :fetching
   end
 
   def sync_by_fetching(as)
-    can_hook = (owner == as.owner)
-    can_hook ||= teams.find_all{|t| t.users.include? as}.any? do |t|
-      TeamPermission.where(team: t, repo: self, permission: :admin).exists? 
-    end
-    if can_hook
+    if as.repos(permission: :admin).include? self
       remote_hooks = as.remote.hooks full_name
       callback_url = events_url host: Rails.configuration.host
       remote_hooks.each do |h|

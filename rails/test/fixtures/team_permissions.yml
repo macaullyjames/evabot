@@ -1,0 +1,18 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+defaults: &defaults
+  team: $LABEL
+  repo: $LABEL
+
+evacorp_admin:
+  permission: admin
+  <<: *defaults
+
+evacorp_push:
+  permission: push
+  <<: *defaults
+
+evacorp_pull:
+  permission: pull
+  <<: *defaults
+

@@ -15,8 +15,12 @@ class User < ApplicationRecord
     organizations
   end
 
-  def repos
-    owner.repos
+  def repos(permission: :owner)
+    repos = owner.repos
+    unless permission == :owner
+      repos += teams.flat_map { |t| t.repos permission: permission }
+    end
+    return repos
   end
 
   after_create do

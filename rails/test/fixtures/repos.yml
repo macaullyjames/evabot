@@ -7,3 +7,15 @@ evabot:
 flopbox:
   owner: macaullyjames
   name: $LABEL
+
+evacorp_admin:
+  owner: evacorp
+  name: $LABEL
+
+evacorp_push:
+  owner: evacorp
+  name: $LABEL
+
+evacorp_pull:
+  owner: evacorp
+  name: $LABEL

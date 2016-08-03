@@ -5,10 +5,9 @@ class Team < ApplicationRecord
   has_many :team_permissions
   has_many :repos, through: :team_permissions
 
-  def sync(by:, as:)
+  def repos(permission: :admin)
+    permissions = [:pull, :push, :admin]
+    implied = permissions.drop(permissions.index permission)
+    team_permissions.where(permission: implied).map(&:repo)
   end
-
-  def self.sync(by:, as:)
-  end
-
 end
