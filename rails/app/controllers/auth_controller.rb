@@ -31,7 +31,7 @@ class AuthController < ApplicationController
     user = User.find_by login: login
     if user.blank?
       user = User.create login: login, token: token
-      user.sync by: :fetching
+      user.sync
     else
       user.update token: token
     end

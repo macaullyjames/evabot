@@ -1,6 +1,4 @@
 class Repo < ApplicationRecord
-  include SyncableRepo
-
   belongs_to :owner
   has_many :branches
   has_many :team_permissions
