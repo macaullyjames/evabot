@@ -35,6 +35,6 @@ class ReposController < ApplicationController
   end
 
   def check_owner
-    halt :bad_request unless user == repo.owner.ownerable
+    halt :bad_request unless user.repos(permission: :admin).include? repo
   end
 end

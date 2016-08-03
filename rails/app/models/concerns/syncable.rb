@@ -6,8 +6,8 @@ module Syncable
     sync_orgs
     sync_user_repos
     sync_org_repos
-    add_repo_hooks
     sync_teams
+    add_repo_hooks
   end
 
   def sync_orgs

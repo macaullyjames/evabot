@@ -8,7 +8,7 @@
 
   <% unless user.repos.empty? %>
     <table class="repos">
-      <% user.repos.each do |repo| %>
+      <% user.repos(permission: :admin).each do |repo| %>
         <tr>
           <td>
             <div>
