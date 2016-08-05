@@ -7,7 +7,6 @@ module Syncable
     sync_user_repos
     sync_org_repos
     sync_teams
-    add_repo_hooks
   end
 
   def sync_orgs
@@ -57,28 +56,6 @@ module Syncable
           tracked: false
         )
       end
-    end
-  end
-
-  def add_repo_hooks
-    unhooked = repos(permission: :admin).reject &:hook_id
-    unhooked.each do |repo|
-      callback_url = events_url host: Rails.configuration.host
-
-      hook = remote.hooks(repo.full_name).find do |h|
-        h.config.url == callback_url
-      end
-      hook ||= remote.create_hook(
-        repo.full_name,
-        "web",
-        {
-          url: callback_url,
-          content_type: "json"
-        },
-        events: [ "*" ],
-        active: repo.tracked?
-      )
-      repo.update hook_id: hook.id
     end
   end
 
