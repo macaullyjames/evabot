@@ -17,6 +17,7 @@ gem 'mocha'
 gem 'webmock'
 gem 'font-awesome-rails'
 gem 'active_link_to'
+gem 'resque-scheduler'
 
 group :development, :test do
   gem 'byebug', platform: :mri

@@ -13,10 +13,11 @@ function silent() {
 }
 
 echo 'Updating the box...'
+silent sudo add-apt-repository ppa:chris-lea/redis-server
 silent sudo apt-get update -y
 
 # Required for the "rugged" gem
-silent sudo apt-get install cmake -y
+silent sudo apt-get install cmake redis-server -y
 
 echo 'Installing rvm and ruby...'
 silent gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
@@ -27,6 +28,7 @@ echo 'Installing gems...'
 cd /evabot/rails
 silent gem install bundler
 silent bundle install
+
 
 echo 'Sprinkling magic...'
 echo 'cd /evabot' >> ~/.bashrc
