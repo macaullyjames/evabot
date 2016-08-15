@@ -33,13 +33,14 @@ source ~/.rvm/scripts/rvm
 echo 'Installing Java and Antlr'
 silent sudo apt-get install openjdk-8-jdk -y
 
-ANTLRPATH="/usr/local/lib/antlr-4.5.3-complete.jar"
-silent sudo curl -o $ANTLRPATH \
-  http://www.antlr.org/download/antlr-4.5.3-complete.jar
-echo "ANTLRPATH='$ANTLRPATH'" >> ~/.bash_profile
-echo 'export CLASSPATH=".:$ANTLRPATH:$CLASSPATH"' >> ~/.bash_profile
-echo 'alias antlr4="java -jar $ANTLRPATH"' >> ~/.bash_profile
-gem install antlr4
+ANTLR_VERSION="antlr-4.5.3-complete.jar"
+silent sudo wget -P /usr/local/lib "http://www.antlr.org/download/$ANTLR_VERSION"
+echo 'export CLASSPATH=".:/usr/local/lib/*:$CLASSPATH"' >> ~/.bash_profile
+echo 'alias antlr4="java -jar /usr/local/lib/antlr-*-complete.jar"' >> ~/.bash_profile
+
+echo 'Installing eva checks...'
+silent wget https://github.com/macaullyjames/eva-isvalidjavacheck/releases/download/v1.0/IsValidJavaCheck.jar
+silent sudo mv *.jar /usr/local/lib/
 
 echo 'Installing gems...'
 cd /evabot/rails
