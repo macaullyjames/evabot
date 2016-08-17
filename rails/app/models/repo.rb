@@ -12,4 +12,14 @@ class Repo < ApplicationRecord
     "#{owner.login}/#{name}"
   end
 
+  def files(pull: true)
+    dir = Rails.root.join("repos", owner.login, name).to_s
+    if not File.directory?(dir)
+      FileUtils.mkdir_p dir
+      `git clone #{url}.git #{dir}`
+    elsif pull
+      Dir.chdir(dir) { `git pull` }
+    end
+    return Dir[dir]
+  end
 end
