@@ -24,6 +24,7 @@ silent sudo apt-get install redis-server -y
 # cmake is required for rugged
 echo 'Installing misc...'
 silent sudo apt-get install cmake -y
+silent sudo apt-get install git -y
 
 echo 'Installing rvm and ruby...'
 silent gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
