@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
   before_action :ensure_signed_in
   helper_method :user, :sign_in, :sign_out, :signed_in?, :eva
 
+  Octokit.configure do |c|
+    c.api_endpoint = "http://gits-15.sys.kth.se/api/v3/"
+    c.web_endpoint = "http://gits-15.sys.kth.se"
+  end
+
   def user
     if session[:user_id]
       @user ||= User.find session[:user_id] 
